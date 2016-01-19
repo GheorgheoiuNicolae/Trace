@@ -1,0 +1,21 @@
+<template name="timeline">
+    {{> navbar}}
+    <div class="negate-scroll">
+        <div class="page-wrap container">
+            {{> trace}}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="day">
+                            {{> entryDate}}
+
+                            {{#each entries}}
+                                {{> showEntry}}
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

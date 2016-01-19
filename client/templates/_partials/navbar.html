@@ -1,0 +1,29 @@
+<template name="navbar">
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="left-side">
+                        <img src="/img/avatar.jpg" class="pull-left avatar">
+                        <div class="user-details pull-left">
+                            <li>{{> loginButtons}}</li>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <img src="/img/everlist-logo.png" class="logo">
+                </div>
+
+                <div class="col-sm-5">
+                    <ul class="menu clearfix">
+                        <li><a href="/">Timeline</a></li>
+                        <li><a href="{{pathFor 'addEntry'}}">Add entry</a></li>
+                        <li><a href="{{pathFor 'labels'}}">Labels</a></li>
+                        <li><a href="{{pathFor 'gallery'}}">Gallery</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</template>

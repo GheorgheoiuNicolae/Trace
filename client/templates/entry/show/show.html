@@ -1,0 +1,32 @@
+<template name="showEntry">
+    <div class="clear"></div>
+    <div class="entries">
+        <a href="{{pathFor 'singleEntry'}}">
+            <div class="entry">
+                <div class="main-label">
+                    <i class="fa fa-camera"></i>
+                </div>
+                <h2 class="title">{{title}}</h2>
+
+                <div class="time">
+                    <i class="fa fa-clock-o"></i>
+                    <span>{{prettifyDate createdAt}}</span>
+                </div>
+
+                <div class="icons">
+                    <i class="fa fa-camera pull-left"></i>
+                    <i class="fa fa-map-marker pull-left"></i>
+                </div>
+
+                <div class="labels ">
+                    {{#each entryLabels}}
+                    <div class="tag">
+                        <i class="fa fa-circle-o c-blue"></i>
+                        <span>{{name}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </a>
+    </div>
+</template>

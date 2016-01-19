@@ -1,0 +1,23 @@
+<template name="singleEntry">
+    {{> navbar}}
+    <div class="negate-scroll">
+        <div class="page-wrap container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>{{title}}</h3>
+                        <h5>Labels:</h5>
+                        <ul>
+                        {{#each labels}}
+                            <li>{{name}}</li>
+                        {{/each}}
+                        </ul>
+
+                        <h5>Description</h5>
+                        <p>{{description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

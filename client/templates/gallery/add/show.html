@@ -1,0 +1,31 @@
+<template name="addImages">
+    {{> navbar}}
+    <div class="new-entry-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="well">
+                        <p>In the end this Gallery section won't allow the upload of images, it will just be a place where you can see all your images from Entries.</p>
+                    </div>
+                    <div class="well">
+                        <p>The issues with this upload implementation:</p>
+                        <p>1. Images are not reactive - a refress is needed to see the uploaded image <br> 2. Images are uploaded on input change instead of submit. <br> 3. Can only upload one image </p>
+                    </div>
+                    <form class="add-images" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="file">Upload Image</label>
+                            <input type="file" name="image" class="imageInput form-control">
+                        </div>
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </form>
+<br><br>
+                    {{#each gallery}}
+                        <div class="col-md-3">
+                            <img src="{{image}}" class="img-responsive" alt="">
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
