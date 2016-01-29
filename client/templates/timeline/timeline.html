@@ -12,6 +12,16 @@
                             {{#each entries}}
                                 {{> showEntry}}
                             {{/each}}
+
+                            <form class="quickAdd">
+                                <div class="entries">
+                                    <div class="entry relative">
+                                        <input type="text" name="entryTitle" class="entryTitle" placeholder="Add new">
+                                        <input type="submit" class="quickEntrySubmit btn btn-success">
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>

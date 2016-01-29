@@ -25,6 +25,8 @@ header {
     height: 130px;
     background: @header;
     padding-top: 50px;
+    position: relative;
+    z-index: 1;
     .logo {
         max-width: 100%;
     }
@@ -52,8 +54,8 @@ header {
 .negate-scroll {
     height: 100%;
     position: relative;
-    top: -130px;
-    margin-top: 130px;
+    //top: -130px;
+    margin-top: -130px;
 }
 
 .page-wrap {
@@ -103,7 +105,7 @@ header {
             float: left;
             margin-top: 0;
             font-size: 18px;
-            padding: 18px 20px 0px 20px;
+            padding: 18px 20px 0px 0px;
         }
         .labels {
             float: right;
@@ -142,9 +144,37 @@ header {
                 font-size: 24px;
             }
         }
+        .edit-section {
+            float: right;
+            padding: 20px;
+            color: #fff;
+            background-color: #C5D0DA;
+        }
     }
 }
 
 .clear {
     clear: both;
+}
+.relative {
+    position: relative;
+}
+
+
+.entryTitle {
+  padding: 10px;
+  margin: 10px;
+  width: 100%;
+  border: none;
+  &:focus {
+      outline: none;
+  }
+}
+.quickEntrySubmit {
+  float: right;
+  padding: 21px;
+  border-radius: 0px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }

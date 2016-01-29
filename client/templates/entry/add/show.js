@@ -12,12 +12,14 @@ Template.addEntry.events({
 
 
                 var pathToImage = '/cfs/files/images/' + fileObj._id;
+                var imgId = fileObj._id;
 
                 if (err){
                     console.log('err', err);
                 } else {
                     var imagesURL = {
                         'myImage': pathToImage,
+                        'imgId': imgId,
                         'author': Meteor.userId
                     };
                 console.log('imagesURL', imagesURL);
@@ -25,7 +27,9 @@ Template.addEntry.events({
 
               Gallery.insert({
                   image: pathToImage,
-                  createdAt: new Date()
+                  imgId: imgId,
+                  createdAt: new Date(),
+                  author: Meteor.userId
               });
             });
         });
@@ -52,6 +56,10 @@ Template.addEntry.events({
 
         // Getting the image
         var imageId = imgId;
+
+        var galleryImg = Gallery.find({imgId: imgId});
+        console.log('galleryImg', galleryImg);
+        console.log('galleryImg id', galleryImg._id);
 
         Entries.insert({
             title: title,

@@ -8,13 +8,17 @@
                 </div>
                 <h2 class="title">{{title}}</h2>
 
+                <a href="{{pathFor 'editEntry'}}" class="edit-section">
+                    <i class="fa fa-edit"></i>
+                </a>
+
                 <div class="time">
                     <i class="fa fa-clock-o"></i>
                     <span>{{prettifyDate createdAt}}</span>
                 </div>
 
                 <div class="icons">
-                    <i class="fa fa-camera pull-left"></i>
+                    {{#if description}}<i class="fa fa-align-left pull-left"></i>{{/if}}
                     <i class="fa fa-map-marker pull-left"></i>
                 </div>
 

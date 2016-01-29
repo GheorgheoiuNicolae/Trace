@@ -3,6 +3,9 @@ Entries = new Mongo.Collection('entries');
 Entries.allow({
     insert: function(userId, doc) {
         return !!userId;
+    },
+    update: function(userId, doc) {
+        return !!userId;
     }
 });
 
