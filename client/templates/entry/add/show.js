@@ -10,7 +10,6 @@ Template.addEntry.events({
                 var objId = fileObj._id;
                 Session.set('fileObjid', objId);
 
-
                 var pathToImage = '/cfs/files/images/' + fileObj._id;
                 var imgId = fileObj._id;
 
@@ -22,7 +21,6 @@ Template.addEntry.events({
                         'imgId': imgId,
                         'author': Meteor.userId
                     };
-                console.log('imagesURL', imagesURL);
               }
 
               Gallery.insert({
@@ -37,7 +35,6 @@ Template.addEntry.events({
 
     'submit .add-entry': function(event){
         var imgId = Session.get('fileObjid');
-        console.log('imgId', imgId);
 
         var title = event.target.title.value;
         var description = event.target.description.value;

@@ -1,6 +1,6 @@
 Template.singleEntry.events({
     'click .title': function(event){
-        var entryLabels = this.entryLabels;
+        var entryLabels = this.labels;
 
 
         var arr = []
@@ -17,12 +17,17 @@ Template.singleEntry.events({
 
 Template.singleEntry.helpers({
     labels: function(event){
-        var entryLabels = this.entryLabels;
-        console.log('entryLabels', entryLabels);
-        // this is how you fetch using an array (entryLabels)
-        var arr = Labels.find({_id: {$in: entryLabels}}).fetch();
+        var entryLabels = this.labels;
+        if(entryLabels){
 
-        console.log('arr', arr[1]);
+            console.log('there are labels');
+            console.log('this.labels', this.labels);
+            console.log('entryLabels', entryLabels);
+            // this is how you fetch using an array (entryLabels)
+            var arr = Labels.find({_id: {$in: entryLabels}}).fetch();
+
+            console.log('--arr', arr[0]);
+        }
         return arr;
     }
 });

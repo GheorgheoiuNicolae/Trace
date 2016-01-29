@@ -28,7 +28,7 @@ EntriesSchema = new SimpleSchema({
         label: "Description",
         optional: true
     },
-    entryLabels: {
+    labels: {
         type: [String],
         optional: true
     },
@@ -36,7 +36,7 @@ EntriesSchema = new SimpleSchema({
         type: Object,
         optional: true
     },
-    imageIds: {
+    images: {
         type: [String],
         optional: true
     },

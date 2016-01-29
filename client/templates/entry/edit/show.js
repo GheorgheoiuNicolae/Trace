@@ -75,8 +75,7 @@ Template.editEntry.events({
             labelsArray.push(label);
         };
 
-        // Getting the image
-        var imageId = imgId;
+
 
 
         Entries.update({_id: this._id}, {$set: {
@@ -84,7 +83,7 @@ Template.editEntry.events({
             description: description,
             date: date,
             createdAt: createdAt,
-            entryLabels: labelsArray,
+            labels: labelsArray,
             author: Meteor.userId
         }});
 
@@ -98,12 +97,12 @@ Template.editEntry.helpers({
     // get all labels that are not assigned to the entry
     labels: ()=> {
         var current = Template.currentData();
-        return Labels.find({_id: {$nin: current.entryLabels}});
+        return Labels.find({_id: {$nin: current.labels}});
     },
     // get only the current entry labels
     entryLabels: ()=> {
         var current = Template.currentData();
-        var labels = Labels.find({_id: {$in: current.entryLabels}});
+        var labels = Labels.find({_id: {$in: current.labels}});
 
         return labels;
     },
@@ -116,15 +115,8 @@ Template.editEntry.helpers({
         var current = Template.currentData();
         // check if there are any images added to the current entry before searching the db
         if(current.imageIds) {
-            var images = Gallery.find({imgId: {$in: current.imageIds}});
+            var images = Gallery.find({imgId: {$in: current.images}});
         }
         return images;
     }
-    // entryImages: ()=> {
-    //     var current = Template.currentData();
-    //     // check if there are any images added to the current entry before searching the db
-    //         var images = Gallery.find({entry: current._id});
-    //         console.log('asddddd', images);
-    //     return images;
-    // }
 });
