@@ -14,10 +14,10 @@
                             <input type="file" name="image" class="form-control imageInput">
                         </div>
                         <div class="form-group clearfix">
-                            {{#each entryImages}}
+                            {{#each images}}
                             <div class="col-md-3">
                                 <img src="{{image}}" class="img-responsive" alt="">
-                                <a class="btn btn-danger remove-image">Delete image</a>
+                                <a class="btn btn-danger delete-image">Delete image</a>
                             </div>
                             {{/each}}
                         </div>

@@ -3,8 +3,27 @@
     <div class="entries">
         <a href="{{pathFor 'singleEntry'}}">
             <div class="entry">
-                <div class="main-label">
-                    <i class="fa fa-camera"></i>
+                <div class="main-label" style="
+                    {{#if entryLabels}}
+                        {{#each entryLabels}}
+                            background:{{color}};
+                        {{/each}}
+                        {{else}}
+                            background: coral;
+                    {{/if}}
+                ">
+                    {{#if images}}
+                        <i class="fa fa-camera"></i>
+                    {{else}}
+                        {{#if description}}
+                            <div class="desc-icon">
+                                <i class="fa fa-align-left pull-left"></i>
+                            </div>
+                            {{else}}
+                            <i class="fa fa-hashtag"></i>
+                        {{/if}}
+                    {{/if}}
+
                 </div>
                 <h2 class="title">{{title}}</h2>
 
@@ -19,17 +38,20 @@
 
                 <div class="icons">
                     {{#if description}}<i class="fa fa-align-left pull-left"></i>{{/if}}
+                    {{#if images}}<i class="fa fa-camera pull-left"></i>{{/if}}
                     <i class="fa fa-map-marker pull-left"></i>
                 </div>
 
-                <div class="labels ">
-                    {{#each entryLabels}}
-                    <div class="tag">
-                        <i class="fa fa-circle-o c-blue"></i>
-                        <span>{{name}}</span>
+                {{#if entryLabels}}
+                    <div class="labels ">
+                        {{#each entryLabels}}
+                        <div class="tag">
+                            <i class="fa fa-circle-o c-blue" style="color: {{color}}"></i>
+                            <span>{{name}}</span>
+                        </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
-                </div>
+                {{/if}}
             </div>
         </a>
     </div>

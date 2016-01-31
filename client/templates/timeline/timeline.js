@@ -5,7 +5,8 @@ Template.timeline.events({
         var entryTitle = event.target.entryTitle.value;
         Entries.insert({
             title: entryTitle,
-            labels: []
+            labels: [],
+            images: []
         });
 
         event.target.entryTitle.value = "";
@@ -15,6 +16,16 @@ Template.timeline.events({
 
 Template.timeline.helpers({
     entries: ()=> {
-        return Entries.find({});
+        var entries = Entries.find({});
+        var fetchedEntries = entries.fetch();
+
+        var dates = [];
+
+        for(i = 0; i < fetchedEntries.length; i++){
+            var entryDate = fetchedEntries[i].date;
+            dates.push(entryDate);
+        }
+        console.log(dates);
+        return entries;
     }
 });

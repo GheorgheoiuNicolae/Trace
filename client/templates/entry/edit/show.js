@@ -8,9 +8,8 @@ Template.editEntry.events({
             var current = Template.currentData();
 
             Images.insert(file, function (err, fileObj) {
-                console.log('fileObj', fileObj);
-                var objId = fileObj._id;
-                Session.set('fileObjid', objId);
+                // var objId = fileObj._id;
+                // Session.set('fileObjid', objId);
 
                 var pathToImage = '/cfs/files/images/' + fileObj._id;
                 var imgId = fileObj._id;
@@ -26,41 +25,42 @@ Template.editEntry.events({
                         entry: current._id
                     });
                 }
+
+                var images = Gallery.find({entry: current._id}).fetch();
+                // note: if -1 is removed the upload works on the first try but the image is not sent to the client and we get a GET error
+                // figure out a way to wait for the image to be stored into the collection
+                var imagesLength = images.length - 1;
+                console.log('imagesLength', imagesLength);
+                var imagesArr = [];
+
+
+                for(i = 0; i < imagesLength; i++){
+                    console.log('the for has run!');
+                    var imageId = images[i]._id;
+                    imagesArr.push(imageId);
+                }
+                console.log('imagesArr', imagesArr);
+
+                if(imagesArr.length > 0) {
+                    console.log('there are images');
+                    Entries.update({_id: current._id}, {$set: {
+                        images: imagesArr
+                    }});
+                }
+
             });
-
-
-            var images = Gallery.find({entry: current._id}).fetch();
-            var imagesLength = images.length - 1;
-            var imagesArr = []
-
-            for(i = 0; i < imagesLength; i++){
-                var imageId = images[i]._id;
-                imagesArr.push(imageId);
-            }
-            console.log('imagesArr', imagesArr);
-
-            if(imagesArr.length > 0) {
-                console.log('there are images');
-                Entries.update({_id: current._id}, {$set: {
-                    images: imagesArr
-                }});
-            }
         });
     },
+    'click .delete-image': function(event){
+        console.log('clicked', this);
+    },
     'submit .edit-entry': function(event){
-
         var current = Template.currentData();
         console.log('current', current);
 
-        var imgId = Session.get('fileObjid');
-        console.log('imgId', imgId);
-
         var title = event.target.title.value;
-        console.log('title', title);
         var date = event.target.date.value;
-        console.log('date', date);
         var description = event.target.description.value;
-        console.log('description', description);
         var createdAt = this.createdAt;
 
         // * Labels *
@@ -74,9 +74,6 @@ Template.editEntry.events({
             // store ids into array
             labelsArray.push(label);
         };
-
-
-
 
         Entries.update({_id: this._id}, {$set: {
             title: title,
@@ -111,12 +108,13 @@ Template.editEntry.helpers({
         var formatted = moment(current.date).format('YYYY-MM-DD')
         return formatted;
     },
-    entryImages: ()=> {
+    images: ()=> {
         var current = Template.currentData();
+        var entryImages = current.images;
         // check if there are any images added to the current entry before searching the db
-        if(current.imageIds) {
-            var images = Gallery.find({imgId: {$in: current.images}});
-        }
+        if(current.images) {
+            var images = Gallery.find({_id: {$in: entryImages}}).fetch();
+        };
         return images;
     }
 });
