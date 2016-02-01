@@ -23,7 +23,8 @@ Template.timeline.helpers({
 
         for(i = 0; i < fetchedEntries.length; i++){
             var entryDate = fetchedEntries[i].date;
-            dates.push(entryDate);
+            var date = moment(entryDate).format('MM:DD:YYYY');
+            dates.push(date);
         }
         console.log(dates);
         return entries;
