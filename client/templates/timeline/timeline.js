@@ -1,4 +1,5 @@
 Meteor.subscribe('entries');
+Meteor.subscribe('getDayCategorisedEntries');
 
 Template.timeline.events({
     'submit .quickAdd': function(event, template){

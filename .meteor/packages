@@ -42,3 +42,4 @@ cfs:gridfs
 mrt:flash-messages
 momentjs:moment
 iron:router
+meteorhacks:aggregate

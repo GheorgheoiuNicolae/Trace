@@ -12,7 +12,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="color">Color</label>
-                                <input type="text" name="color" class="form-control">
+                                <!-- <input type="text" name="color" class="form-control"> -->
+                                <select name="labelColor" id="labelColor">
+                                    {{#each colors}}
+                                        <!-- <input type="radio" value="{{code}}" name="labelColor" class="labelColor">
+                                        <label for="{{code}}" class="color" style="background-color: {{code}}">{{code}}</label> -->
+                                        <option value="{{code}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
                             </div>
                             <input type="submit" class="btn btn-primary">
                         </form>
@@ -22,11 +29,21 @@
                     <div class="col-sm-12">
                         <ul class="list-group">
                             {{#each labels}}
-                            <li class="list-group-item ">
-                                <span class="color"><b>{{color}}</b></span> {{name}}
+                            <li class="list-group-item edit-label {{_id}} clearfix">
+                                <span class="label-icon"><i class="fa fa-bookmark" style="color: {{color}}"></i> </span>
+                                <span class="label-name">{{name}}</span>
+                                <input type="text" value="{{name}}" class="label-editable-name" name="name">
                                 <a class="btn btn-danger btn-xs pull-right delete-label">Delete Label</a>
+                                <div class="label-colors">
+                                    {{#each colors}}
+                                        <label class="color" style="background-color: {{code}}">
+                                            <input type="radio" name="labelColor" value="{{code}}" class="chosenColor" id="{{code}}">
+                                        </label>
+                                    {{/each}}
+                                </div>
                             </li>
                             {{/each}}
+
                         </ul>
                     </div>
                 </div>
