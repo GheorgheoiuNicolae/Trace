@@ -29,6 +29,10 @@ LabelsSchema = new SimpleSchema({
         autoform: {
             type: "hidden"
         }
+    },
+    createdAt: {
+        type: Date,
+        label: "Date"
     }
 });
 
