@@ -9,8 +9,6 @@ Template.singleEntry.events({
             var theLabel = Labels.find({_id: entryLabels[i]}).fetch();
             arr.push(theLabel);
         }
-
-        console.log(arr);
     }
 });
 
