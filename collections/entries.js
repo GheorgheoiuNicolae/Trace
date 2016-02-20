@@ -60,11 +60,21 @@ EntriesSchema = new SimpleSchema({
             type: "hidden"
         }
     },
-    date: {
+    dateTimestamp: {
         type: Date,
-        label: "Date",
+        label: "DateTimesTamp",
         autoValue: function(){
             return new Date()
+        },
+        autoform: {
+            type: "hidden"
+        }
+    },
+    date: {
+        type: String,
+        label: "Date",
+        autoValue: function(){
+            return moment().format('L');
         },
         autoform: {
             type: "hidden"
