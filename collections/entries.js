@@ -15,6 +15,7 @@ Entries.allow({
 // gallery *
 // author
 // createdAt
+// dateTimestamp
 // date
 
 

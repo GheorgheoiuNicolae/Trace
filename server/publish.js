@@ -1,32 +1,47 @@
-Entriesz = new Mongo.Collection('getDayCategorisedEntries');
 Meteor.publish('entries', function(){
-    // return Entries.aggregate([
-    //     { $group: {
-    //         _id: "$date",
-    //         entries: { $push: "$$ROOT" },
-    //         number: { $sum: 1 }
-    //     } },
-    //     { $match: { } }
-    // ]);
-    // return Entries.aggregate([
-    // 	{$match: { author: this.userId} },
-    // 	{$group: { _id: {$postDate: "$date"}, Total: {$sum: 1} }},
-    // ]);
-    //
+    return Entries.find({author: this.userId});
+});
 
-    var pipeline = [
-        { $group: {
-            _id: "$date",
-            entries: { $push: "$$ROOT" },
-            number: { $sum: 1 }
-        } },
-        { $match: { } }
-    ];
-
-    var result = Entries.aggregate(pipeline);
-    return result;
-    console.log('result', result);
-    //return Entries.find({author: this.userId});
+Meteor.publish("sortedEntries", function() {
+    // This does this: Run aggregation of the fields below on the Reports
+    // Collection...
+    // db.entries.aggregate( [
+    //     {
+    //         $group: {
+    //             _id: "$date",
+    //             entries: {
+    //                 $push: "$$ROOT"
+    //             },
+    //             number: {
+    //                 $sum: 1
+    //             }
+    //         }
+    //     },
+    //     {
+    //         $match: { }
+    //     }
+    // ]);
+    console.log('aggregation has run');
+    ReactiveAggregate(this, Entries, [
+        {
+            $group: {
+                _id: "$date",
+                entries: {
+                    $push: "$$ROOT"
+                },
+                number: {
+                    $sum: 1
+                }
+            }
+        },
+        {
+            $match: { }
+        }
+    ],
+    {
+        // and send the results to another collection called below
+        clientCollection: "sortedEntries"
+    });
 });
 
 Meteor.publish('labels', function(){
@@ -38,16 +53,42 @@ Meteor.publish('gallery', function(){
     return Gallery.find();
 });
 Meteor.publish("images", function(){ return Images.find(); });
-// db.entries
-//
-// db.entries.aggregate( [
-//    { $group: { _id: "$date", entries: { $push: "$$ROOT" },  number: { $sum: 1 } } },
-//    { $match: { } }
-// ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BACKUP
+
+// note: aggregates entries by date with complete entry details
+//db.entries.aggregate( [{ $group: { _id: "$date", entries: { $push: "$$ROOT" },  number: { $sum: 1 } } },{ $match: { } }]);
 
 // note: code from StackOverflow post - not working yet
-
-Meteor.publish('getDayCategorisedEntries', function (opts) {
+/* Meteor.publish('getDayCategorisedEntries', function (opts) {
 
     var initializing = 1;
 
@@ -98,9 +139,4 @@ Meteor.publish('getDayCategorisedEntries', function (opts) {
     this.onStop(function () {
         handle.stop();
     });
-});
-
-
-
-// to be run in mongo shell - SO
-//var pipeline = [{"$group": {"_id": "$date", "entries": { "$push": "$_id" }}}]; db.entry.aggregate(pipeline);
+}); */

@@ -7,10 +7,18 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="day">
-                            {{> entryDate}}
+                            <!-- not used as this was dummy data before aggregation -->
+                            <!-- {{> entryDate}} -->
 
-                            {{#each entries}}
+                            <!-- {{#each entries}}
                                 {{> showEntry}}
+                            {{/each}} -->
+
+                            {{#each sortedEntries}}
+                                <h3>{{_id}}</h3>
+                                {{#each entries}}
+                                    {{> showSortedEntries}}
+                                {{/each}}
                             {{/each}}
 
                             <form class="quickAdd">

@@ -100,6 +100,7 @@ Template.editEntry.helpers({
     entryLabels: ()=> {
         var current = Template.currentData();
         var labels = Labels.find({_id: {$in: current.labels}});
+        console.log('labels', labels.fetch());
 
         return labels;
     },
