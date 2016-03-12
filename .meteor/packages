@@ -43,3 +43,4 @@ mrt:flash-messages
 momentjs:moment
 iron:router
 jcbernack:reactive-aggregate
+rajit:bootstrap3-datepicker

@@ -1,7 +1,7 @@
 Template.singleEntry.events({
     'click .title': function(event){
+        console.log('something happend');
         var entryLabels = this.labels;
-
 
         var arr = []
         for(i = 0; i < entryLabels.length; i++) {

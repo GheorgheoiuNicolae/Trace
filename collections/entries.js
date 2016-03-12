@@ -74,12 +74,10 @@ EntriesSchema = new SimpleSchema({
     date: {
         type: String,
         label: "Date",
-        autoValue: function(){
-            return moment().format('L');
-        },
         autoform: {
             type: "hidden"
-        }
+        },
+        optional: true
     }
 });
 

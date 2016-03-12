@@ -6,21 +6,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="day">
-                            <!-- not used as this was dummy data before aggregation -->
-                            <!-- {{> entryDate}} -->
-
-                            <!-- {{#each entries}}
-                                {{> showEntry}}
-                            {{/each}} -->
-
-                            {{#each sortedEntries}}
-                                <h3>{{_id}}</h3>
-                                {{#each entries}}
-                                    {{> showSortedEntries}}
-                                {{/each}}
+                        {{#each sortedEntries}}
+                        <div class="day {{#if equals isToday _id}}today{{/if}}">
+                            <h3>{{_id}}</h3>
+                            {{#each entries}}
+                                {{> showSortedEntries}}
                             {{/each}}
 
+                            <!-- _id is the date after aggregation -->
+                            <!-- this shows the form to enter a new entry only for the current day -->
+                            {{#if equals isToday _id}}
                             <form class="quickAdd">
                                 <div class="entries">
                                     <div class="entry relative">
@@ -29,8 +24,17 @@
                                     </div>
                                 </div>
                             </form>
-
+                            {{/if}}
                         </div>
+                        {{/each}}
+                        <form class="quickAdd">
+                            <div class="entries">
+                                <div class="entry relative">
+                                    <input type="text" name="entryTitle" class="entryTitle" placeholder="Add new">
+                                    <input type="submit" class="quickEntrySubmit btn btn-success">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

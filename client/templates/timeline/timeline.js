@@ -1,6 +1,7 @@
 Meteor.subscribe('entries');
 Meteor.subscribe('getDayCategorisedEntries');
 
+var currentDate = Session.get('currentDate');
 Template.timeline.events({
     'submit .quickAdd': function(event, template){
         var entryTitle = event.target.entryTitle.value;
@@ -16,24 +17,16 @@ Template.timeline.events({
 });
 
 Template.timeline.helpers({
-    // not used anymore as now I return the aggregation result
-    // entries: ()=> {
-    //     var entries = Entries.find({});
-    //     var fetchedEntries = entries.fetch();
-    //
-    //     var dates = [];
-    //
-    //     for(i = 0; i < fetchedEntries.length; i++){
-    //         var entryDate = fetchedEntries[i].date;
-    //         var date = moment(entryDate).format('MM:DD:YYYY');
-    //         dates.push(date);
-    //     }
-    //     console.log(dates);
-    //     return entries;
-    // },
+
     sortedEntries: ()=> {
         var result = SortedEntries.find();
-        console.log(result.fetch());
+        console.log('hh',result.fetch());
         return result;
+    },
+    isToday: ()=> {
+        var currentDate = Session.get('currentDate');
+        var formattedDate = moment(currentDate).format('MM/DD/YYYY');
+        console.log('---------formattedDate', formattedDate);
+        return formattedDate;
     }
 });

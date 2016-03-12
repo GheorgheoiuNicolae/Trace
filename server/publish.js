@@ -3,24 +3,6 @@ Meteor.publish('entries', function(){
 });
 
 Meteor.publish("sortedEntries", function() {
-    // This does this: Run aggregation of the fields below on the Reports
-    // Collection...
-    // db.entries.aggregate( [
-    //     {
-    //         $group: {
-    //             _id: "$date",
-    //             entries: {
-    //                 $push: "$$ROOT"
-    //             },
-    //             number: {
-    //                 $sum: 1
-    //             }
-    //         }
-    //     },
-    //     {
-    //         $match: { }
-    //     }
-    // ]);
     console.log('aggregation has run');
     ReactiveAggregate(this, Entries, [
         {

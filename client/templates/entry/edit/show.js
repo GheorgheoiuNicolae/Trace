@@ -53,13 +53,22 @@ Template.editEntry.events({
     },
     'click .delete-image': function(event){
         console.log('clicked', this);
+        var date = event.target.date.value;
+        console.log('--date', date);
+    },
+    'click .labels-list .label-item': function(event){
+        console.log('element');
+        $('input').closest('div').toggleClass("checked");
     },
     'submit .edit-entry': function(event){
         var current = Template.currentData();
         console.log('current', current);
 
         var title = event.target.title.value;
-        var date = event.target.date.value;
+        var entryDate = event.target.date.value;
+        console.log('--entryDate', entryDate);
+        var formattedDate = moment(entryDate).format('MM/DD/YYYY');
+        console.log('--formattedDate', formattedDate);
         var description = event.target.description.value;
         var createdAt = this.createdAt;
 
@@ -78,7 +87,7 @@ Template.editEntry.events({
         Entries.update({_id: this._id}, {$set: {
             title: title,
             description: description,
-            date: date,
+            date: formattedDate,
             createdAt: createdAt,
             labels: labelsArray,
             author: Meteor.userId
@@ -106,7 +115,10 @@ Template.editEntry.helpers({
     },
     entryDate: ()=> {
         var current = Template.currentData();
-        var formatted = moment(current.date).format('YYYY-MM-DD')
+        console.log('current', current);
+        console.log('current.date', current.date);
+        var formatted = moment(current.date).format('YYYY-MM-DD');
+        console.log('formatted', formatted);
         return formatted;
     },
     images: ()=> {
