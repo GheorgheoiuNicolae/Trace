@@ -43,4 +43,6 @@ mrt:flash-messages
 momentjs:moment
 iron:router
 jcbernack:reactive-aggregate
+fezvrasta:bootstrap-material-design
 rajit:bootstrap3-datepicker
+jayuda:bootstrap-material-datepicker

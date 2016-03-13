@@ -76,8 +76,7 @@ EntriesSchema = new SimpleSchema({
         label: "Date",
         autoform: {
             type: "hidden"
-        },
-        optional: true
+        }
     }
 });
 

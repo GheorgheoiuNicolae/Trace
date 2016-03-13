@@ -8,14 +8,14 @@
                     <div class="col-sm-12">
                         {{#each sortedEntries}}
                         <div class="day {{#if equals isToday _id}}today{{/if}}">
-                            <h3>{{_id}}</h3>
+                            <h3>{{dayName _id}}</h3>
                             {{#each entries}}
                                 {{> showSortedEntries}}
                             {{/each}}
 
                             <!-- _id is the date after aggregation -->
                             <!-- this shows the form to enter a new entry only for the current day -->
-                            {{#if equals isToday _id}}
+                            <!-- {{#if equals isToday _id}}
                             <form class="quickAdd">
                                 <div class="entries">
                                     <div class="entry relative">
@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                             </form>
-                            {{/if}}
+                            {{/if}} -->
                         </div>
                         {{/each}}
                         <form class="quickAdd">

@@ -1,7 +1,25 @@
-var today = moment().format('YYYY-MM-DD');
-Session.set('currentDate', today);
+
+
+Template.editEntry.rendered = function () {
+    $('#date').bootstrapMaterialDatePicker({ format:'YYYY-MM-DD', time:false, lang : 'en',  cancelText : 'Cancel' });
+    $('#date').bootstrapMaterialDatePicker().on('change', function(e, date){
+    console.log('aaa')
+    });
+
+    $('#date').bootstrapMaterialDatePicker().on('dateSelected', function(e, date){
+        console.log('eee');
+    });
+    $.material.init()
+
+}
+
+
 
 Template.editEntry.events({
+    'focus #date': function(e, template){
+        var f = Template.instance().$('#date');
+        f.bootstrapMaterialDatePicker({format:'YYYY-MM-DD', time:false, lang : 'en',  cancelText : 'Cancel'  });
+    },
     'change .imageInput': function(event, template) {
         FS.Utility.eachFile(event, function(file) {
             // target the current entry
@@ -52,17 +70,14 @@ Template.editEntry.events({
         });
     },
     'click .delete-image': function(event){
-        console.log('clicked', this);
-        var date = event.target.date.value;
-        console.log('--date', date);
+        console.log('Functionallity is not done for delete image. "this" refers to the imaged you clicked delete on:', this);
     },
-    'click .labels-list .label-item': function(event){
-        console.log('element');
-        $('input').closest('div').toggleClass("checked");
+    'click .labels-list .label-item': function(event, element){
+        console.log('You clicked the label: ', element);
     },
     'submit .edit-entry': function(event){
         var current = Template.currentData();
-        console.log('current', current);
+        console.log('curentData: ', current);
 
         var title = event.target.title.value;
         var entryDate = event.target.date.value;
@@ -88,7 +103,6 @@ Template.editEntry.events({
             title: title,
             description: description,
             date: formattedDate,
-            createdAt: createdAt,
             labels: labelsArray,
             author: Meteor.userId
         }});
@@ -115,10 +129,8 @@ Template.editEntry.helpers({
     },
     entryDate: ()=> {
         var current = Template.currentData();
-        console.log('current', current);
-        console.log('current.date', current.date);
+        console.log('currentData - this comes form "Template.editEntry.helpers : entryDate": ', current);
         var formatted = moment(current.date).format('YYYY-MM-DD');
-        console.log('formatted', formatted);
         return formatted;
     },
     images: ()=> {

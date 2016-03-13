@@ -1,6 +1,6 @@
 Template.singleEntry.events({
     'click .title': function(event){
-        console.log('something happend');
+        console.log('Clicked the title');
         var entryLabels = this.labels;
 
         var arr = []
@@ -9,6 +9,7 @@ Template.singleEntry.events({
             var theLabel = Labels.find({_id: entryLabels[i]}).fetch();
             arr.push(theLabel);
         }
+        console.log('Clicked the title. + arr', arr);
     }
 });
 
@@ -21,6 +22,7 @@ Template.singleEntry.helpers({
 
             console.log('--arr', arr[0]);
         }
+
         return arr;
     }
 });
