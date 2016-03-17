@@ -83,6 +83,9 @@ Template.editEntry.events({
         var entryDate = event.target.date.value;
         console.log('--entryDate', entryDate);
         var formattedDate = moment(entryDate).format('MM/DD/YYYY');
+
+        var time = new Date(entryDate).getTime();
+        console.log('time', time);
         console.log('--formattedDate', formattedDate);
         var description = event.target.description.value;
         var createdAt = this.createdAt;

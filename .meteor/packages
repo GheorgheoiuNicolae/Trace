@@ -44,5 +44,5 @@ momentjs:moment
 iron:router
 jcbernack:reactive-aggregate
 fezvrasta:bootstrap-material-design
-rajit:bootstrap3-datepicker
+planettraining:material-design-icons
 jayuda:bootstrap-material-datepicker
