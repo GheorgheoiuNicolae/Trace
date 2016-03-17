@@ -53,7 +53,6 @@ Template.editEntry.events({
 
 
                 for(i = 0; i < imagesLength; i++){
-                    console.log('the for has run!');
                     var imageId = images[i]._id;
                     imagesArr.push(imageId);
                 }
