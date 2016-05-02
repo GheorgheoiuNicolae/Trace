@@ -9,16 +9,6 @@ Entries.allow({
     }
 });
 
-// title
-// description
-// labels *
-// gallery *
-// author
-// createdAt
-// dateTimestamp
-// date
-
-
 EntriesSchema = new SimpleSchema({
     title: {
         type: String,
@@ -51,29 +41,16 @@ EntriesSchema = new SimpleSchema({
             type: "hidden"
         }
     },
-    createdAt: {
-        type: Date,
-        label: "Created At",
-        autoValue: function(){
-            return new Date()
-        },
+    dateTime: {
+        type: Number,
+        label: "DateTime",
         autoform: {
             type: "hidden"
         }
     },
-    dateTimestamp: {
-        type: Date,
-        label: "DateTimesTamp",
-        autoValue: function(){
-            return new Date()
-        },
-        autoform: {
-            type: "hidden"
-        }
-    },
-    date: {
+    dateStr: {
         type: String,
-        label: "Date",
+        label: "DateStr",
         autoform: {
             type: "hidden"
         }
