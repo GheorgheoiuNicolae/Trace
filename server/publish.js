@@ -7,17 +7,25 @@ Meteor.publish("sortedEntries", function() {
     ReactiveAggregate(this, Entries, [
         {
             $group: {
-                _id: "$date",
+                _id: "$dateStr",
                 entries: {
                     $push: "$$ROOT"
                 },
                 number: {
+                    $sum: 1
+                },
+                anotherProperty: {
                     $sum: 1
                 }
             }
         },
         {
             $match: { }
+        },
+        {
+            $sort : {
+                dateTime : -1
+            }
         }
     ],
     {
@@ -30,10 +38,10 @@ Meteor.publish('labels', function(){
     return Labels.find({author: this.userId});
 });
 
-
 Meteor.publish('gallery', function(){
     return Gallery.find();
 });
+
 Meteor.publish("images", function(){ return Images.find(); });
 
 

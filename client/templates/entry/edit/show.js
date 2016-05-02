@@ -1,16 +1,13 @@
-
-
 Template.editEntry.rendered = function () {
     $('#date').bootstrapMaterialDatePicker({ format:'YYYY-MM-DD', time:false, lang : 'en',  cancelText : 'Cancel' });
     $('#date').bootstrapMaterialDatePicker().on('change', function(e, date){
-    console.log('aaa')
+        console.log('here I need to save the date of the entry');
     });
 
     $('#date').bootstrapMaterialDatePicker().on('dateSelected', function(e, date){
-        console.log('eee');
+        console.log('here I need to change the date of the entry');
     });
     $.material.init()
-
 }
 
 
@@ -38,7 +35,7 @@ Template.editEntry.events({
                     Gallery.insert({
                         image: pathToImage,
                         imgId: imgId,
-                        createdAt: new Date(),
+                        createdAt: new Date().getTime(),
                         author: Meteor.userId,
                         entry: current._id
                     });
@@ -75,17 +72,17 @@ Template.editEntry.events({
         console.log('You clicked the label: ', element);
     },
     'submit .edit-entry': function(event){
+        // just for development - the current var is not used otherwise
         var current = Template.currentData();
         console.log('curentData: ', current);
 
         var title = event.target.title.value;
+        //entryDate is the date that the user picks in the format YYYY-MM-DD
         var entryDate = event.target.date.value;
-        console.log('--entryDate', entryDate);
-        var formattedDate = moment(entryDate).format('MM/DD/YYYY');
+        console.log('entryDate: ', entryDate);
 
-        var time = new Date(entryDate).getTime();
-        console.log('time', time);
-        console.log('--formattedDate', formattedDate);
+        var parsedDate = Date.parse(entryDate);
+
         var description = event.target.description.value;
         var createdAt = this.createdAt;
 
@@ -104,7 +101,8 @@ Template.editEntry.events({
         Entries.update({_id: this._id}, {$set: {
             title: title,
             description: description,
-            date: formattedDate,
+            dateStr: entryDate,
+            dateTime: parsedDate,
             labels: labelsArray,
             author: Meteor.userId
         }});
@@ -129,12 +127,6 @@ Template.editEntry.helpers({
 
         return labels;
     },
-    entryDate: ()=> {
-        var current = Template.currentData();
-        console.log('currentData - this comes form "Template.editEntry.helpers : entryDate": ', current);
-        var formatted = moment(current.date).format('YYYY-MM-DD');
-        return formatted;
-    },
     images: ()=> {
         var current = Template.currentData();
         var entryImages = current.images;
@@ -143,5 +135,9 @@ Template.editEntry.helpers({
             var images = Gallery.find({_id: {$in: entryImages}}).fetch();
         };
         return images;
-    }
+    },
+    entryDate: ()=> {
+        var current = Template.currentData();
+        return current.dateStr;
+    },
 });
