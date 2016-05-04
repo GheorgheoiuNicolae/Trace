@@ -2,6 +2,7 @@ Meteor.publish('entries', function(){
     return Entries.find({author: this.userId});
 });
 
+
 Meteor.publish("sortedEntries", function() {
     console.log('aggregation has run');
     ReactiveAggregate(this, Entries, [
@@ -9,10 +10,12 @@ Meteor.publish("sortedEntries", function() {
             $group: {
                 _id: "$dateStr",
                 entries: {
-                    $push: "$$ROOT"
+                    // $push: "$$ROOT"
+                    $addToSet: "$$ROOT"
                 },
+                
                 number: {
-                    $sum: 1
+                    $sum: "$dateTime"
                 },
                 anotherProperty: {
                     $sum: 1
@@ -24,7 +27,7 @@ Meteor.publish("sortedEntries", function() {
         },
         {
             $sort : {
-                dateTime : -1
+                _id : 1
             }
         }
     ],

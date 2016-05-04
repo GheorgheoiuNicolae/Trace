@@ -2,6 +2,7 @@ Meteor.subscribe('entries');
 Meteor.subscribe('getDayCategorisedEntries');
 
 var today = moment().format('YYYY-MM-DD');
+console.log('todaytoday', today);
 Session.set('currentDate', today);
 //var currentDate = Session.get('currentDate');
 console.log('today', today);
@@ -33,19 +34,34 @@ Template.timeline.helpers({
 
         // The code below converts that _id into a date.getTime() and after that, using undersore, I filtered the days.
 
-        
+
         var result = SortedEntries.find({});
         var fetchedEntries = result.fetch();
         
+
+        // Adds a date key on the fetchedEntries object in order to sort it
         for(i = 0; i < fetchedEntries.length; i++) {
+            // Sorting for the days - by time (older first)
             var dayId = fetchedEntries[i]._id;
             var splitted = dayId.split('-');
             var dayDate = new Date(splitted[0], splitted[1], splitted[2]).getTime();
             fetchedEntries[i].date = dayDate;
+
+            var entriesInDay = fetchedEntries[i].entries;
+            
+            // filters the entries inside a day
+            if(entriesInDay.length > 1) {
+                for(index = 0; index < entriesInDay.length; index++) {
+                    fetchedEntries[i].entries = _.sortBy(entriesInDay, 'dateTime');
+                }
+            }
         }
 
-        var entries = _.sortBy(fetchedEntries, 'date');
-        return entries;
+        var filteredEntries = _.sortBy(fetchedEntries, 'date');
+
+      
+        
+        return filteredEntries;
     }
     // isToday: ()=> {
     //     var formattedDate = Session.get('formattedDate');
