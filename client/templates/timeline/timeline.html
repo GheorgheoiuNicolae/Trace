@@ -8,7 +8,7 @@
                     <div class="col-sm-12">
                         {{#each sortedEntries}}
                         <div class="day {{#if equals isToday _id}}today{{/if}}">
-                            <h3>{{dayName _id}}</h3>
+                            <h3>{{formatDayDate _id}}</h3>
                             {{#each entries}}
                                 {{> showSortedEntries}}
                             {{/each}}

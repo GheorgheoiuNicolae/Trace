@@ -1,7 +1,9 @@
 Template.editEntry.rendered = function () {
     $('#date').bootstrapMaterialDatePicker({ format:'YYYY-MM-DD', time:false, lang : 'en',  cancelText : 'Cancel' });
     $('#date').bootstrapMaterialDatePicker().on('change', function(e, date){
-        console.log('here I need to save the date of the entry');
+        console.log('here I need to save the date of the entry', date._d);
+        changedDate = date._d.getTime();
+        console.log('changedDate', changedDate);
     });
 
     $('#date').bootstrapMaterialDatePicker().on('dateSelected', function(e, date){
@@ -15,7 +17,12 @@ Template.editEntry.rendered = function () {
 Template.editEntry.events({
     'focus #date': function(e, template){
         var f = Template.instance().$('#date');
-        f.bootstrapMaterialDatePicker({format:'YYYY-MM-DD', time:false, lang : 'en',  cancelText : 'Cancel'  });
+        f.bootstrapMaterialDatePicker({
+            format:'YYYY-MM-DD', 
+            time:false, 
+            lang: 'en',  
+            cancelText: 'Cancel'
+        });
     },
     'change .imageInput': function(event, template) {
         FS.Utility.eachFile(event, function(file) {
@@ -77,15 +84,7 @@ Template.editEntry.events({
         console.log('curentData: ', current);
 
         var title = event.target.title.value;
-        //entryDate is the date that the user picks in the format YYYY-MM-DD
-        var entryDate = event.target.date.value;
-        console.log('entryDate: ', entryDate);
-
-        var parsedDate = Date.parse(entryDate);
-
         var description = event.target.description.value;
-        var createdAt = this.createdAt;
-
         // * Labels *
         // Getting the checked labels
         var checkedLabels = $('.label-checkbox:checked');
@@ -98,11 +97,22 @@ Template.editEntry.events({
             labelsArray.push(label);
         };
 
+        //entryDate is the date that the user picks in the format YYYY-MM-DD
+        var entryDate = event.target.date.value;
+        console.log('entryDate: ', entryDate);
+        var parsedDate = Date.parse(entryDate);
+        console.log('parsedDate using Date.parse() on entryDate: ', parsedDate);
+        var date = new Date(parsedDate);
+        console.log('date- new Date on parsedDate: ', date);
+        //console.log('YMD test: ', new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate() );
+        var dateYearMonthDay = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0).getTime()
+        console.log('--aa ', dateYearMonthDay);
+
         Entries.update({_id: this._id}, {$set: {
             title: title,
             description: description,
-            dateStr: entryDate,
             dateTime: parsedDate,
+            dateYearMonthDay: dateYearMonthDay,
             labels: labelsArray,
             author: Meteor.userId
         }});
@@ -137,7 +147,8 @@ Template.editEntry.helpers({
         return images;
     },
     entryDate: ()=> {
-        var current = Template.currentData();
-        return current.dateStr;
+        var dateInMiliseconds = Template.currentData().dateYearMonthDay;
+        var dateStr = moment(dateInMiliseconds).format('YYYY-MM-DD');
+        return dateStr;
     },
 });

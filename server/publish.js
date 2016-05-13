@@ -8,12 +8,10 @@ Meteor.publish("sortedEntries", function() {
     ReactiveAggregate(this, Entries, [
         {
             $group: {
-                _id: "$dateStr",
+                _id: "$dateYearMonthDay",
                 entries: {
-                    // $push: "$$ROOT"
                     $addToSet: "$$ROOT"
                 },
-                
                 number: {
                     $sum: "$dateTime"
                 },
@@ -35,6 +33,7 @@ Meteor.publish("sortedEntries", function() {
         // and send the results to another collection called below
         clientCollection: "sortedEntries"
     });
+    console.log('should run when anything changes')
 });
 
 Meteor.publish('labels', function(){

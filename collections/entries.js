@@ -48,8 +48,8 @@ EntriesSchema = new SimpleSchema({
             type: "hidden"
         }
     },
-    dateStr: {
-        type: String,
+    dateYearMonthDay: {
+        type: Number,
         label: "DateStr",
         autoform: {
             type: "hidden"
