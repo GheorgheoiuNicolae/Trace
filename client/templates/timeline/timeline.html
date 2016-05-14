@@ -6,26 +6,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        {{#each sortedEntries}}
-                        <div class="day {{#if equals isToday _id}}today{{/if}}">
-                            <h3>{{formatDayDate _id}}</h3>
-                            {{#each entries}}
-                                {{> showSortedEntries}}
-                            {{/each}}
-
-                            <!-- _id is the date after aggregation -->
-                            <!-- this shows the form to enter a new entry only for the current day -->
-                            <!-- {{#if equals isToday _id}}
-                            <form class="quickAdd">
-                                <div class="entries">
-                                    <div class="entry relative">
-                                        <input type="text" name="entryTitle" class="entryTitle" placeholder="Add new">
-                                        <input type="submit" class="quickEntrySubmit btn btn-success">
-                                    </div>
-                                </div>
-                            </form>
-                            {{/if}} -->
-                        </div>
+                        {{#each entries}}
+                            <div class="day {{#if equals isToday _id}}today{{/if}}">
+                                <h3>{{formatDayDate _id}}</h3>
+                                {{#each matchingEntries}}
+                                    {{> showSortedEntries}}
+                                {{/each}}
+                            </div>
                         {{/each}}
                         <form class="quickAdd">
                             <div class="entries">

@@ -1,39 +1,17 @@
 Meteor.publish('entries', function(){
+    var userEntries = Entries.find({author: this.userId}).fetch();
+    console.log('entries length ', userEntries.length);
+    if(userEntries.length === 0) {
+        Entries.insert({
+            "author": this.userId,
+            "title": "Joined Everlist",
+            "labels": [],
+            "images": [],
+            "dateYearMonthDay": 1471467600000,
+            "dateTime": 1468800000000
+        });
+    }
     return Entries.find({author: this.userId});
-});
-
-
-Meteor.publish("sortedEntries", function() {
-    console.log('aggregation has run');
-    ReactiveAggregate(this, Entries, [
-        {
-            $group: {
-                _id: "$dateYearMonthDay",
-                entries: {
-                    $addToSet: "$$ROOT"
-                },
-                number: {
-                    $sum: "$dateTime"
-                },
-                anotherProperty: {
-                    $sum: 1
-                }
-            }
-        },
-        {
-            $match: { }
-        },
-        {
-            $sort : {
-                _id : 1
-            }
-        }
-    ],
-    {
-        // and send the results to another collection called below
-        clientCollection: "sortedEntries"
-    });
-    console.log('should run when anything changes')
 });
 
 Meteor.publish('labels', function(){

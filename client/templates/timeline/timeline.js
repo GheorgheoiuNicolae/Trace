@@ -23,24 +23,40 @@ Template.timeline.events({
 });
 
 Template.timeline.helpers({
-    sortedEntries: ()=> {
-        var fetchedEntries = Entries.find({}).fetch();
+    entries: ()=> {
+        var dbEntries = Entries.find({}).fetch();
+        var sortedByDateTime = _.sortBy(dbEntries, 'dateTime');
+        var datesObj = [];
 
-        // for(i = 0; i < fetchedEntries.length; i++) {
-        //     var entriesInDay = fetchedEntries[i].entries;
-        //     // filters the entries inside a day
-        //     if(entriesInDay.length > 1) {
-        //         for(index = 0; index < entriesInDay.length; index++) {
-        //             fetchedEntries[i].entries = _.sortBy(entriesInDay, 'dateTime');
-        //         }
-        //     }
-        // }
-        // var filteredEntries = _.sortBy(fetchedEntries, 'date');
+        // Creates an array with dates
+        for(i = 0; i < sortedByDateTime.length; i++){
+            datesObj.push(sortedByDateTime[i].dateYearMonthDay);
+        }
+        // Filters the array with dates to keep only the unique items
+        var filteredUnique = _.uniq(datesObj);
+        // Filters the unique dates array to be ascending
+        var filterAsc = _.sortBy(filteredUnique, function(num){
+            return num;
+        });
+        var entries = [];
 
-        return fetchedEntries;
+        // Creates an object with the unique YMD as _id
+        for(i = 0; i< filterAsc.length; i++) {
+            entries.push({
+                _id: filterAsc[i],
+                matchingEntries: []
+            });
+        }
+
+        // pushes the entries of wich the YMD is equal to the _id in the object
+        for(j = 0; j< sortedByDateTime.length; j++){
+            for(i = 0; i < entries.length; i++) {
+                if(entries[i]._id == sortedByDateTime[j].dateYearMonthDay) {
+                    entries[i].matchingEntries.push(sortedByDateTime[j]);
+                }
+            }
+        }
+
+        return entries;
     }
-    // isToday: ()=> {
-    //     var formattedDate = Session.get('formattedDate');
-    //     return formattedDate;
-    // }
 });
